@@ -1,0 +1,5 @@
+# Place dev-cluster overrides here
+deploy:
+  env:
+    - name: NEWSCRATCH_LOG_LEVEL
+      value: INFO

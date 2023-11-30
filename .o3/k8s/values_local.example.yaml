@@ -1,0 +1,60 @@
+# Файл предоставлен в качестве примера и не предназначен для ручного редактирования.
+# Важные обновления будут дополняться по мере необходимости при обновлении Scratch.
+
+# В этой секции можно переопределять переменные,
+# определенные в секции realtimeConfig файла values.yaml
+# и тех, которые доступны в etcd.
+realtimeConfig:
+  log_level:
+    value: "INFO"
+
+  # Отключение s2s авторизации
+  # для удобства локальной разработки.
+  s2s_auth_requests_verify_grpc:
+    value: disabled
+
+  s2s_auth_requests_verify_http:
+    value: disabled
+
+  s2s_auth_requests_sign_grpc:
+    value: disabled
+
+  s2s_auth_requests_sign_http:
+    value: disabled
+
+  # Подключение к удаленным сервисам.
+  # https://gitlab.ozon.ru/platform/scratch/-/blob/master/pkg/mw/discovery/README.md
+  #  external_services_overrides:
+  #    usage: "Per services settings"
+  #    group: "scratch"
+  #    type: "string"
+  #    value: |
+  #      {
+  #        "service1": {
+  #          "discovery": {
+  #            "target": "service1.stg.a.o3.ru:82"
+  #          }
+  #        }
+  #      }
+
+# Секреты, которые будут выданы с помощью вызова secret.GetValue()
+secrets:
+  - name: my-secret
+    value: my-secret-value
+  - name: empty-secret
+    value: ""
+
+deploy:
+  env:
+    # Межсервисная авторизация в сервисах Ozon
+    # https://confluence.ozon.ru/pages/viewpage.action?pageId=227007340
+    # Определяем путь до SSO, если требуется включение межсервисной авторизации
+    #  - name: S2S_AUTH_URL
+    #    value: https://sso-test.o3.ru/auth/realms/service2service
+    # Определяем хост для подключения к warden-у, если требуется межсервисное взаимодействие при локальном запуске
+    #  - name: WARDEN_HOST_PORT
+    #    value: warden.dev.a.o3.ru:82
+
+    # Ниже определяем переменные, необходимые для работы вашего приложения.
+    # Они обычно определены в файле values_production.yaml
+    # (с их помощью происходит генерация файла internal/config.go).

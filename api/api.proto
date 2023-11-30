@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package ozon.newscratch;
+
+option go_package = "gitlab.ozon.ru/newscratch/api";
+option csharp_namespace = "Ozon.Bx.NewScratchgService.Api";
+
+import "google/protobuf/empty.proto";
+
+service Demo {
+   rpc Ping(google.protobuf.Empty) returns (Response) {}
+}
+
+message Response {
+   string message = 1;
+}

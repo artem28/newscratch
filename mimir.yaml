@@ -1,0 +1,10 @@
+version: v3
+language: golang
+project_repo: gitlab.ozon.ru/newscratch
+proto_paths:
+    - api/api.proto
+pkg_proto_paths: []
+ignore_dirs: []
+local_dependencies:
+    - google/protobuf/empty.proto@master
+external_services: []

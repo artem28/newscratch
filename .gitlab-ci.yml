@@ -1,0 +1,27 @@
+# https://confluence.ozon.ru/pages/viewpage.action?pageId=152175709
+include:
+  - project: pub/ci
+    ref: 0.0.5
+    file: .go.gitlab-ci.yml
+  # https://confluence.ozon.ru/display/ITDOC/canary+deploy+nginx
+  - project: pub/ci
+    ref: 0.0.5
+    file: .canary-nginx.gitlab-ci.yml
+
+variables:
+  # свой namespace, по умолчанию берется $CI_PROJECT_NAMESPACE
+  K8S_NAMESPACE: $CI_PROJECT_NAMESPACE
+  # если не указать будет использоваться $CI_PROJECT_PATH_SLUG (формат group-subgroup-project, например cas-roles)
+  SERVICE_NAME: newscratch
+  # проект в JIRA в котором будут заводиться релизы
+  # JIRA_PROJ: ""
+  # префикс для релиза в JIRA
+  # JIRA_VERSION_PREFIX: newscratch/
+  # если не в корне, расположение файла для сборки docker образа
+  DOCKERFILE_PATH: .o3/build/package/Dockerfile
+  # если есть папка с миграциями
+  # MIGRATION_FOLDER: migrations
+  # каналы куда отправлять оповещения о деплоях, через пробел
+  # SLACK_DEPLOY_CHANNELS:
+  # Set DEPLOY_CONFIG: "no" to disable etcd config updater on deploy stage.
+  DEPLOY_CONFIG: "yes"

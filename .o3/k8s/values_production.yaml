@@ -1,0 +1,5 @@
+# Place production overrides here
+deploy:
+  env:
+    - name: NEWSCRATCH_LOG_LEVEL
+      value: WARN

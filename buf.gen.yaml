@@ -1,0 +1,43 @@
+version: v1
+plugins:
+    - name: go
+      path: bin/protoc-gen-go
+      out: .
+      opt: 
+        - paths=source_relative
+      strategy: directory
+    - name: go-grpc
+      path: bin/protoc-gen-go-grpc
+      out: .
+      opt: 
+        - paths=source_relative
+      strategy: directory
+    - name: grpc-gateway
+      path: bin/protoc-gen-grpc-gateway
+      out: .
+      opt:
+        - logtostderr=true
+        - paths=source_relative
+        - generate_unbound_methods=true
+      strategy: directory
+    - name: openapiv2
+      path: bin/protoc-gen-openapiv2
+      out: .
+      opt: 
+        - generate_unbound_methods=true
+      strategy: directory
+    - name: scratch
+      path: bin/protoc-gen-scratch
+      out: .
+      opt:
+        - paths=source_relative
+        - implementation_name=Implementation
+        - implementation_import=gitlab.ozon.ru/newscratch/internal/app
+      strategy: directory
+    - name: go-vtproto
+      path: bin/protoc-gen-go-vtproto
+      out: .
+      opt:
+        - features=marshal+unmarshal+size+pool
+        - paths=source_relative
+      strategy: directory
