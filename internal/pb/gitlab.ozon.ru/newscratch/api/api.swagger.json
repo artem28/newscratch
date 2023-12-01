@@ -16,8 +16,8 @@
     "application/json"
   ],
   "paths": {
-    "/ozon.newscratch.Demo/Ping": {
-      "post": {
+    "/ping": {
+      "get": {
         "operationId": "Demo_Ping",
         "responses": {
           "200": {
@@ -33,17 +33,6 @@
             }
           }
         },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {}
-            }
-          }
-        ],
         "tags": [
           "Demo"
         ]

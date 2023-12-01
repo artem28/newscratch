@@ -36,14 +36,6 @@ func request_Demo_Ping_0(ctx context.Context, marshaler runtime.Marshaler, clien
 	var protoReq emptypb.Empty
 	var metadata runtime.ServerMetadata
 
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
 	msg, err := client.Ping(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
@@ -52,14 +44,6 @@ func request_Demo_Ping_0(ctx context.Context, marshaler runtime.Marshaler, clien
 func local_request_Demo_Ping_0(ctx context.Context, marshaler runtime.Marshaler, server DemoServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq emptypb.Empty
 	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
 
 	msg, err := server.Ping(ctx, &protoReq)
 	return msg, metadata, err
@@ -72,7 +56,7 @@ func local_request_Demo_Ping_0(ctx context.Context, marshaler runtime.Marshaler,
 // Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterDemoHandlerFromEndpoint instead.
 func RegisterDemoHandlerServer(ctx context.Context, mux *runtime.ServeMux, server DemoServer) error {
 
-	mux.Handle("POST", pattern_Demo_Ping_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_Demo_Ping_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -80,7 +64,7 @@ func RegisterDemoHandlerServer(ctx context.Context, mux *runtime.ServeMux, serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/ozon.newscratch.Demo/Ping", runtime.WithHTTPPathPattern("/ozon.newscratch.Demo/Ping"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/ozon.newscratch.Demo/Ping", runtime.WithHTTPPathPattern("/ping"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -138,13 +122,13 @@ func RegisterDemoHandler(ctx context.Context, mux *runtime.ServeMux, conn *grpc.
 // "DemoClient" to call the correct interceptors.
 func RegisterDemoHandlerClient(ctx context.Context, mux *runtime.ServeMux, client DemoClient) error {
 
-	mux.Handle("POST", pattern_Demo_Ping_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_Demo_Ping_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/ozon.newscratch.Demo/Ping", runtime.WithHTTPPathPattern("/ozon.newscratch.Demo/Ping"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/ozon.newscratch.Demo/Ping", runtime.WithHTTPPathPattern("/ping"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -164,7 +148,7 @@ func RegisterDemoHandlerClient(ctx context.Context, mux *runtime.ServeMux, clien
 }
 
 var (
-	pattern_Demo_Ping_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"ozon.newscratch.Demo", "Ping"}, ""))
+	pattern_Demo_Ping_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0}, []string{"ping"}, ""))
 )
 
 var (

@@ -11,5 +11,5 @@ import (
 
 // Ping stub. Please implement it.
 func (i *Implementation) Ping(ctx context.Context, req *emptypb.Empty) (*desc.Response, error) {
-        return &desc.Response{Message: "Pong"}, nil
+	return &desc.Response{Message: "Pong"}, nil
 }

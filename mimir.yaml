@@ -6,5 +6,6 @@ proto_paths:
 pkg_proto_paths: []
 ignore_dirs: []
 local_dependencies:
+    - google/api/annotations.proto@master
     - google/protobuf/empty.proto@master
 external_services: []
